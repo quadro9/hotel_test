@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Additional
+/.pytest_cache/
+/.venv/
+/.vscode/
+/build/
+__pycache__
+*_tests.xml
