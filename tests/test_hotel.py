@@ -242,3 +242,29 @@ ROOMS hotel4
     assert run_test(input_str) == expected_output
 
 
+def test_case10():
+    # Тест 10. Тест от заказчика:
+    input_str = """\
+11
+CLIENTS Marriott
+ROOMS Marriott
+BOOK 10 FourSeasons 1 2
+BOOK 10 Marriott 1 1
+BOOK 86409 FourSeasons 2 1
+CLIENTS FourSeasons
+ROOMS FourSeasons
+CLIENTS Marriott
+BOOK 86410 Marriott 2 10
+ROOMS FourSeasons
+ROOMS Marriott
+"""
+    expected_output = """\
+0
+0
+2
+3
+1
+1
+10
+"""
+    assert run_test(input_str) == expected_output

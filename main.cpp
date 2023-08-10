@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
-#include <set>
+#include <deque>
 
 using namespace std::literals;
 
@@ -18,10 +18,6 @@ struct Booking {
     int64_t time;
     uint32_t client_id;
     uint16_t room_count;
-
-    bool operator<(const Booking& other) const {
-        return time < other.time;
-    }
 };
 
 class Hotel {
@@ -60,11 +56,11 @@ public:
         while (!bookings.empty() && bookings.begin()->time <= time - Costant::DAY_SECONDS) {
             const Booking& old_booking = *bookings.begin();
             hotels[old_booking.hotel_name].removeBooking(old_booking);
-            bookings.erase(bookings.begin());
+            bookings.pop_front();
         }
 
         // добавляем новое бронирование
-        bookings.insert({hotel_name, time, client_id, room_count});
+        bookings.push_back({hotel_name, time, client_id, room_count});
         hotels[hotel_name].addBooking(*bookings.rbegin());
     }
 
@@ -77,7 +73,7 @@ public:
     }
 
 private:
-    std::set<Booking> bookings;  // храним все бронирования в отсортированном порядке по времени
+    std::deque<Booking> bookings;
     std::unordered_map<std::string, Hotel> hotels;
 };
 
@@ -112,5 +108,3 @@ int main() {
 
     return 0;
 }
-
-// manager.book имеет O(log(n)) сложность.
